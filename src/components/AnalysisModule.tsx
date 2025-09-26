@@ -3,9 +3,10 @@ import { Brain, TrendingUp, Users, Heart, Eye, BarChart3, PieChart, Activity } f
 
 interface AnalysisModuleProps {
   professorData: any;
+  onComplete?: (results: Record<string, any>) => void;
 }
 
-const AnalysisModule: React.FC<AnalysisModuleProps> = ({ professorData }) => {
+const AnalysisModule: React.FC<AnalysisModuleProps> = ({ professorData, onComplete }) => {
   const [analysisResults, setAnalysisResults] = useState<any>({});
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [activeAnalysis, setActiveAnalysis] = useState<string[]>([]);
@@ -56,6 +57,8 @@ const AnalysisModule: React.FC<AnalysisModuleProps> = ({ professorData }) => {
     setAnalysisResults({});
     setActiveAnalysis([]);
 
+    const results: Record<string, any> = {};
+
     // Simuler l'exécution séquentielle des analyses
     for (const tool of analysisTools) {
       setActiveAnalysis(prev => [...prev, tool.name]);
@@ -65,10 +68,14 @@ const AnalysisModule: React.FC<AnalysisModuleProps> = ({ professorData }) => {
       
       // Générer des résultats simulés
       const result = generateAnalysisResult(tool.name, professorData);
+      results[tool.name] = result;
       setAnalysisResults(prev => ({ ...prev, [tool.name]: result }));
     }
 
     setIsAnalyzing(false);
+    if (onComplete) {
+      onComplete(results);
+    }
   };
 
   const generateAnalysisResult = (toolName: string, data: any) => {

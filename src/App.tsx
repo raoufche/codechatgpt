@@ -27,7 +27,16 @@ function App() {
       case 'database':
         return <DatabaseModule professorData={professorData} />;
       case 'analysis':
-        return <AnalysisModule professorData={professorData} />;
+        return (
+          <AnalysisModule
+            professorData={professorData}
+            onComplete={(analysisResults) =>
+              setProfessorData((prev: any) =>
+                prev ? { ...prev, analysisResults } : prev
+              )
+            }
+          />
+        );
       case 'email':
         return <EmailGenerator professorData={professorData} />;
       case 'dashboard':
