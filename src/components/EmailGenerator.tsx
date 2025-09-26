@@ -71,9 +71,9 @@ const EmailGenerator: React.FC<EmailGeneratorProps> = ({ professorData }) => {
   };
 
   const generatePersonalizedEmail = () => {
-    const analysisData = professorData.analysisResults || {};
-    const personalityInsights = analysisData['Deep Personal'] || {};
-    const characterProfile = analysisData['PsyCoT'] || {};
+    const analysisData = professorData?.analysisResults;
+    const personalityInsights = analysisData?.['Deep Personal'];
+    const characterProfile = analysisData?.['PsyCoT'];
     
     const template = `Objet: Opportunité unique de ${universityInfo.position} - ${universityInfo.name}
 
@@ -83,7 +83,7 @@ J'espère que ce message vous trouve en excellente santé et que vos recherches 
 
 ## Reconnaissance de votre expertise
 
-Votre travail remarquable, particulièrement vos ${professorData.academicInfo?.publications || 'nombreuses'} publications et vos ${professorData.academicInfo?.citations || 'nombreuses'} citations, a attiré notre attention. Votre approche ${personalityInsights.communicationStyle || 'innovante'} et votre style de leadership ${characterProfile.characterProfile?.workStyle || 'collaboratif'} correspondent parfaitement à la culture de notre institution.
+Votre travail remarquable, particulièrement vos ${professorData.academicInfo?.publications || 'nombreuses'} publications et vos ${professorData.academicInfo?.citations || 'nombreuses'} citations, a attiré notre attention. Votre approche ${personalityInsights?.communicationStyle || 'innovante'} et votre style de leadership ${characterProfile?.characterProfile?.workStyle || 'collaboratif'} correspondent parfaitement à la culture de notre institution.
 
 ## Opportunité proposée
 
@@ -95,9 +95,9 @@ ${universityInfo.benefits.split('\n').map(benefit => `• ${benefit.trim()}`).fi
 
 Basé sur notre analyse de votre profil professionnel :
 
-${personalityInsights.recommendedApproach ? `• **Approche personnalisée** : ${personalityInsights.recommendedApproach}` : ''}
-${characterProfile.recruitmentFit ? `• **Compatibilité élevée** : Score de ${characterProfile.recruitmentFit}% d'adéquation avec notre environnement` : ''}
-${characterProfile.characterProfile?.motivationFactors ? `• **Alignement des objectifs** : Nos opportunités correspondent à vos motivations : ${characterProfile.characterProfile.motivationFactors.join(', ')}` : ''}
+${personalityInsights?.recommendedApproach ? `• **Approche personnalisée** : ${personalityInsights.recommendedApproach}` : ''}
+${characterProfile?.recruitmentFit ? `• **Compatibilité élevée** : Score de ${characterProfile.recruitmentFit}% d'adéquation avec notre environnement` : ''}
+${characterProfile?.characterProfile?.motivationFactors ? `• **Alignement des objectifs** : Nos opportunités correspondent à vos motivations : ${characterProfile.characterProfile.motivationFactors.join(', ')}` : ''}
 
 ## Notre engagement envers l'excellence
 
