@@ -66,12 +66,14 @@ const SearchModule: React.FC<SearchModuleProps> = ({ onDataFound }) => {
     // Simulation du processus de recherche OSINT
     const toolsToRun = osintTools.slice(0, 3); // Utiliser les 3 premiers outils
     
+    const collectedResults: any[] = [];
+
     for (const tool of toolsToRun) {
       setActiveTools(prev => [...prev, tool.name]);
-      
+
       // Simuler le délai de recherche
       await new Promise(resolve => setTimeout(resolve, 2000));
-      
+
       // Simuler des résultats
       const mockResult = {
         tool: tool.name,
@@ -79,9 +81,11 @@ const SearchModule: React.FC<SearchModuleProps> = ({ onDataFound }) => {
         data: generateMockData(tool.name, searchQuery),
         timestamp: new Date().toLocaleTimeString()
       };
-      
-      setSearchResults(prev => [...prev, mockResult]);
+
+      collectedResults.push(mockResult);
     }
+
+    setSearchResults(collectedResults);
 
     // Agrégation finale des données
     const aggregatedData = {
@@ -89,7 +93,7 @@ const SearchModule: React.FC<SearchModuleProps> = ({ onDataFound }) => {
       email: email,
       title: title,
       searchTimestamp: new Date().toISOString(),
-      osintResults: searchResults,
+      osintResults: collectedResults,
       socialProfiles: generateSocialProfiles(searchQuery),
       academicInfo: generateAcademicInfo(searchQuery),
       digitalFootprint: generateDigitalFootprint()
